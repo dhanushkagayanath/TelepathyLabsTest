@@ -25,5 +25,3 @@ How to Run Unit Tests
 - To run integration tests for Hotel, run test project 'XUnitTestsHotel' (this project can be found under Hotel solution)
 - To run unit tests for services run run test project 'XUnitTestServices' (this project can be found under Common API solution)
 - How to run test projects -> Right click on the project under solution explorer and click 'Run Tests'
-
-- K Dhanushka Gayanath -
