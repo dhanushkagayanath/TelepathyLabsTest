@@ -1,0 +1,6 @@
+**/bin
+**/obj
+**/.vs
+**/logs
+/TraderCoreAPI/Properties/PublishProfiles/CustomProfile.pubxml
+/TraderCoreAPI/Properties/PublishProfiles/CustomProfile.pubxml.user

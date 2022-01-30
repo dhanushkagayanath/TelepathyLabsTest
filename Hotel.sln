@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30503.244
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Models", "Models\Models.csproj", "{AC899135-ADD0-4E75-AEE1-7923C71E7941}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HotelUI", "Hotel\HotelUI.csproj", "{B967A8D9-E090-4836-9DF9-059C497075A7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XUnitTestsHotel", "XUnitTestsHotel\XUnitTestsHotel.csproj", "{89816B89-75B6-4472-BD12-951C4B266046}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AC899135-ADD0-4E75-AEE1-7923C71E7941}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC899135-ADD0-4E75-AEE1-7923C71E7941}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC899135-ADD0-4E75-AEE1-7923C71E7941}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC899135-ADD0-4E75-AEE1-7923C71E7941}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B967A8D9-E090-4836-9DF9-059C497075A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B967A8D9-E090-4836-9DF9-059C497075A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B967A8D9-E090-4836-9DF9-059C497075A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B967A8D9-E090-4836-9DF9-059C497075A7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{89816B89-75B6-4472-BD12-951C4B266046}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{89816B89-75B6-4472-BD12-951C4B266046}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{89816B89-75B6-4472-BD12-951C4B266046}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{89816B89-75B6-4472-BD12-951C4B266046}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B56BB7EF-2874-4E06-AAF6-FE4989DBB50A}
+	EndGlobalSection
+EndGlobal
