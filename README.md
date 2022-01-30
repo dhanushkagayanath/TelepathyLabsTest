@@ -3,14 +3,14 @@ Sourcecode for both question 1 and question 2 with unit tests.
 
 Prerequisites
 -------------
--You need to have Visual Studio(Microsoft Visual Studio Professional 2019 or later) to Open / Debug / Run Unit tests
+- You need to have Microsoft Visual Studio(Visual Studio Professional 2019 or later)
 
 Notes
 -----
-- This source contains source code for Backend Engineer test_Solutions Team Test, Question 1 (Software Design and Implementation) and Question 2 (Algorithms)
-- There is a Common API developed (.net core web api) for both questions. To open in Visual Studio, click CommonApi.sln
+- This repository contains source code for Backend Engineer test_Solutions Team Test, Question 1 (Software Design and Implementation) and Question 2 (Algorithms)
+- There is a Common API developed (.net core web api) for both projects. To open in Visual Studio, click CommonApi.sln
 - To Open the source code for question 1, click Hotel.sln
-- To Open the source code for question 1, click Calculator.sln
+- To Open the source code for question 2, click Calculator.sln
 
 How to Run Projects
 -------------------
