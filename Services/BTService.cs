@@ -76,76 +76,106 @@ namespace Services
             //paranthesis must be used for program to understand execution order. For example input string should be (2 + (1 + 1)) instead of (2 + 1 + 1)
             //binary tree creating will continue even if invalid input string found. This is to capture all the errors and prompt to the user.
 
-            //wrap the input string inside paranthasis (if not exists)
+
+            if (string.IsNullOrEmpty(input)) return null;
+
+            //always wrap the input string inside paranthasis to constract btree accurately
             input = "(" + input + ")";
 
             char[] lexicals = input.ToCharArray().Where(c => !Char.IsWhiteSpace(c)).ToArray();
             IList<string> errors = new List<string>();
             Stack<Node> nodeStack = new Stack<Node>();
+            IList<string> stringUnits = new List<string>();
 
-            int openP = 0;
+            // constract string token list and initial validation
             for (int i = 0; i < lexicals.Length; i++)
             {
-                if (lexicals[i] == '(')
+                // only + - x ÷ ( ) and whole numbers expected.
+
+                if (!validChars.Contains(lexicals[i])) errors.Add(string.Format("Unexpected character found!. Character: '{0}' CharCode: {1}", lexicals[i], (int)lexicals[i]));
+
+                if (i > 0 && Char.IsNumber(lexicals[i - 1]) && Char.IsNumber(lexicals[i]))
+                {
+                    string lastNumber = stringUnits.LastOrDefault();
+                    stringUnits.RemoveAt(stringUnits.Count - 1);
+                    stringUnits.Add(lastNumber + lexicals[i].ToString());
+                }
+                else
+                {
+                    stringUnits.Add(lexicals[i].ToString());
+                }
+
+            }
+
+            int openP = 0;
+
+            for (int i = 0; i < stringUnits.Count; i++)
+            {
+                if (stringUnits[i] == "(")
                 {
                     openP++;
                 }
-                else if (lexicals[i] == ')')
+                else if (stringUnits[i] == ")")
                 {
-                    if (nodeStack.Count < 1) continue;
+                    if (nodeStack.Count == 1) continue;
 
-                    Node rNode = nodeStack.Pop();
+                        bool rightMinus = false;
+                    // possible valid strings (5),(+5),(-5),(5+5),(5x-5),(-5x-5)
+
+                    //nodeStack should have at lease item
+                    if (nodeStack.Count < 1) throw new ApplicationException("Invalid ')' found in the string");
+
                     //rnode should always be a number
+                    Node rNode = nodeStack.Pop();
 
+                    //(5)
+                    if (i - 2 >= 0 && stringUnits[i - 2] == "(")
+                    {
+                        nodeStack.Push(rNode);
+                        openP--;
+                        continue;
+                    }
+
+                    //(...-5)
+                    if (i - 3 >= 0 && stringUnits[i - 2] == "-" && "x÷".Contains(stringUnits[i - 3]))
+                    {
+                        rightMinus = true;
+                        Node minusOperandValue = nodeStack.Pop();
+                        minusOperandValue.Left = new Node("0");
+                        minusOperandValue.Right = new Node(rNode.Value);
+                        rNode = minusOperandValue;
+                    }
+
+                    //value node
+                    //(...+...)
                     Node valueNode = nodeStack.Count > 0 ? nodeStack.Pop() : new Node { Value = "+" };
+
+                    //left node
                     Node lNode = nodeStack.Count > 0 ? nodeStack.Pop() : new Node { Value = "0" };
+                    //(-5x+
+                    int tempidx = rightMinus ? i - 1 : i;
+                    //check if right side also minus
+                    if (tempidx - 4 >= 0 && stringUnits[tempidx - 4] == "-")
+                    {
+                        Node minusOperand = nodeStack.Pop();
+                        minusOperand.Left = new Node("0");
+                        minusOperand.Right = new Node(lNode.Value);
+                        lNode = minusOperand;
+                    }
+
                     Node updatedNode = new Node { Value = valueNode.Value, Left = lNode, Right = rNode };
 
                     nodeStack.Push(updatedNode);
                     openP--;
                 }
-                else
-                {
+                else {
+
                     // only + - x ÷ ( ) and whole numbers expected.
+                    //if (!validChars.Contains(stringUnits[i])) errors.Add(string.Format("Unexpected character found!. Character: '{0}' CharCode: {1}", lexicals[i], (int)lexicals[i]));
+                    Node node = new Node { Value = stringUnits[i].ToString() };
+                    nodeStack.Push(node);
 
-                    if (!validChars.Contains(lexicals[i])) errors.Add(string.Format("Unexpected character found!. Character: '{0}' CharCode: {1}", lexicals[i], (int)lexicals[i]));
-
-                    // if more than one digits come next to each other, should concat them as a single number
-                    if (i > 0 && Char.IsNumber(lexicals[i - 1]) && Char.IsNumber(lexicals[i]))
-                    {
-                        Node prevNode = nodeStack.Pop();
-                        prevNode.Value += lexicals[i].ToString();
-                        nodeStack.Push(prevNode);
-                    }
-                    // handle negative values. '-' just after 'x' or '÷' operands considered valid.Ex, this is valid -> (1 × -3) or (1 ÷ -3)
-                    // other scenarios, two operands should not come together
-                    else if (i > 1 && operands.Contains(lexicals[i - 2]) && operands.Contains(lexicals[i - 1]) && numbers.Contains(lexicals[i]))
-                    {
-                        char oparand1 = lexicals[i - 2];
-                        char oparand2 = lexicals[i - 1];
-                        char number = lexicals[i - 1];
-
-                        if (multiplyDevideOps.Contains(oparand1) && oparand2 == '-')
-                        {
-                            /*valid for negative numbers. ex: 1 × -3) or (1 ÷ -3)*/
-                            Node lNode = new Node { Value = "0" };
-                            Node valueNode = nodeStack.Pop();
-                            Node rNode = new Node { Value = lexicals[i].ToString() };
-                            Node updatedNode = new Node { Value = valueNode.Value, Left = lNode, Right = rNode };
-                            nodeStack.Push(updatedNode);
-                        }
-                        else
-                        {
-                            errors.Add(string.Format("Two operands should not come together except in case for negative numbers!. Found: '{0}' and {1}", oparand1, oparand2));
-                        }
-                    }
-                    else
-                    {
-                        Node node = new Node { Value = lexicals[i].ToString() };
-                        nodeStack.Push(node);
-                    }
                 }
-
             }
 
             BTree btree = new BTree();
