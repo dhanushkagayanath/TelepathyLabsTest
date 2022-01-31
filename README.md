@@ -15,8 +15,8 @@ Notes
 How to Run Projects
 -------------------
 - First run the common API. Open CommonApi.sln in Visual Studio and press 'F5' (to run in debug mode). If service is successfully started, you should see 'Service Started!' in your default browser.
-- Run Hotel.sln in Visual Studio. This will open WPF based client UI for question 1 solution.
-- Run Calculator.sln in Visual Studio. This will open WPF based client UI for question 2 solution.
+- Run Hotel.sln in Visual Studio.Set HotelUI as the startup project and run.This will open WPF based client UI for question 1 solution. 
+- Run Calculator.sln in Visual Studio.Set Calculator as the startup project and run. This will open WPF based client UI for question 2 solution. You may use the key panel or directly key-in the green input box.
 
 How to Run Unit Tests
 ---------------------
